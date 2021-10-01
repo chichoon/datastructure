@@ -5,9 +5,17 @@ ArrayList	*createArrayList(int maxElementCount)
 {
 	ArrayList	*lst;
 
-	lst = malloc(sizeof(ArrayList) * maxElementCount);
+	lst = malloc(sizeof(ArrayList));
 	if (!lst)
 		return (0);
+	lst->pElement = malloc(sizeof(ArrayListNode) * maxElementCount);
+	if (!lst->pElement)
+	{
+		free(lst);
+		return (0);
+	}
+	lst->maxElementCount = maxElementCount;
+	lst->currentElementCount = 0;
 	return (lst);
 }
 
