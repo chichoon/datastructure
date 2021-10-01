@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
 	{
 		ArrayListNode node;
 
-		// 리스트 초기화: 1, 3, 5 추가.
 		node.data = 1;
 		addALElement(pList, 0, node);
 
@@ -24,14 +23,13 @@ int main(int argc, char *argv[]) {
 		addALElement(pList, 2, node);
 		displayArrayList(pList);
 
-		// 첫번째 원소 제거.
 		removeALElement(pList, 0);
 		displayArrayList(pList);
 
 		arrayCount = getArrayListLength(pList);
 		for(i = 0; i < arrayCount; i++) {
 			pValue = getALElement(pList, i);
-			printf("위치[%d]-%d\n", i, pValue->data);
+			printf("諛곗뿴[%d]-%d\n", i, pValue->data);
 		}
 
 		deleteArrayList(pList);
