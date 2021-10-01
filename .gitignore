@@ -1,2 +1,3 @@
 *.pdf
 Archive*
+.DS_Store
