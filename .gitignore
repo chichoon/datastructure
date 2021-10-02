@@ -1,3 +1,5 @@
 *.pdf
 Archive*
 .DS_Store
+*.plist
+*dSYM
