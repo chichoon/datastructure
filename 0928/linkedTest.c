@@ -33,5 +33,7 @@ int	main(int argc, char *argv[])
 		node.data = 3;
 		addLLElement(pList, 1, node);
 		printLinkedList(pList);
+		removeLLElement(pList, 2);
+		printLinkedList(pList);
 	}
 }

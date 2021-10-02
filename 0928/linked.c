@@ -44,7 +44,7 @@ int	removeLLElement(LinkedList *pList, int position)
 	ListNode	*node;
 	ListNode	*to_del;
 
-	if (pList->currentElementCount < position
+	if (pList->currentElementCount <= position
 		|| position < 0)
 		return (-1);
 	i = -1;
@@ -52,8 +52,9 @@ int	removeLLElement(LinkedList *pList, int position)
 	while (++i + 1 < position)
 		node = node->pLink;
 	to_del = node->pLink;
-	node->pLink = node->pLink->pLink;
+	node->pLink = to_del->pLink;
 	free(to_del);
+	pList->currentElementCount--;
 	return (0);
 }
 
