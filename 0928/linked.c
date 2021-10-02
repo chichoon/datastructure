@@ -10,23 +10,31 @@ LinkedList	*createLinkedList(void)
 	if (!lst)
 		return (0);
 	lst->currentElementCount = 0;
+	lst->headerNode.data = 0;
+	lst->headerNode.pLink = NULL;
 	return (lst);
 }
 
 int	addLLElement(LinkedList *pList, int position, ListNode element)
 {
 	int			i;
+	ListNode	*to_add;
 	ListNode	*node;
 
 	if (pList->currentElementCount + 1 < position
 		|| position < 0)
 		return (-1);
+	to_add = malloc(sizeof(ListNode));
+	if (!to_add)
+		return (-1);
+	to_add->data = element.data;
 	i = -1;
 	node = &pList->headerNode;
 	while (++i + 1 < position)
 		node = node->pLink;
-	element.pLink = node->pLink;
-	node->pLink = &element;
+	to_add->pLink = node->pLink;
+	node->pLink = to_add;
+	pList->currentElementCount++;
 	return (0);
 }
 
@@ -56,7 +64,7 @@ ListNode	*getLLElement(LinkedList *pList, int position)
 
 	if (pList->currentElementCount < position
 		|| position < 0)
-		return (-1);
+		return (0);
 	i = -1;
 	node = &pList->headerNode;
 	while (++i < position)
