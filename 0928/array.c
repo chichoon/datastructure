@@ -47,7 +47,7 @@ int	addALElement(ArrayList *pList, int position, ArrayListNode element)
 	if (pList->currentElementCount == pList->maxElementCount
 		|| position < 0 || position >= pList->maxElementCount)
 		return (-1);
-	pList->pElement[position] = element;
+	*(pList->pElement + position) = element;
 	pList->currentElementCount++;
 	return (0);
 }
@@ -57,7 +57,7 @@ int	removeALElement(ArrayList *pList, int position)
 	if (position >= pList->currentElementCount || position < 0)
 		return (-1);
 	while (++position <= pList->currentElementCount)
-		pList->pElement[position - 1] = pList->pElement[position];
+		*(pList->pElement + position - 1) = *(pList->pElement + position);
 	pList->currentElementCount -= 1;
 	return (0);
 }
@@ -66,7 +66,7 @@ ArrayListNode	*getALElement(ArrayList *pList, int position)
 {
 	if (position >= pList->currentElementCount || position < 0)
 		return (0);
-	return (&pList->pElement[position]);
+	return (pList->pElement + position);
 }
 
 void displayArrayList(ArrayList* pList)
