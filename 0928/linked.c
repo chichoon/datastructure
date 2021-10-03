@@ -44,7 +44,7 @@ int	removeLLElement(LinkedList *pList, int position)
 	ListNode	*node;
 	ListNode	*to_del;
 
-	if (pList->currentElementCount <= position
+	if (pList->currentElementCount < position
 		|| position < 0)
 		return (-1);
 	i = -1;
@@ -75,15 +75,15 @@ ListNode	*getLLElement(LinkedList *pList, int position)
 
 void	clearLinkedList(LinkedList *pList)
 {
-	int			i;
 	ListNode	*node;
 	ListNode	*to_del;
 
-	i = -1;
 	node = &pList->headerNode;
 	to_del = node->pLink;
-	while (++i < pList->currentElementCount)
-		removeLLElement(pList, i);
+	while (pList->headerNode.pLink != NULL)
+	{
+		removeLLElement(pList, 1);
+	}
 }
 
 int	getLinkedListLength(LinkedList *pList)

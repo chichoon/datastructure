@@ -35,5 +35,10 @@ int	main(int argc, char *argv[])
 		printLinkedList(pList);
 		removeLLElement(pList, 2);
 		printLinkedList(pList);
+		printf("1st element: %d\n", getLLElement(pList, 1)->data);
+		printf("list length: %d\n", getLinkedListLength(pList));
+		clearLinkedList(pList);
+		printf("list length: %d\n", getLinkedListLength(pList));
+		deleteLinkedList(pList);
 	}
 }
