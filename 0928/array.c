@@ -44,9 +44,17 @@ int	isArrayListFull(ArrayList *pList)
 
 int	addALElement(ArrayList *pList, int position, ArrayListNode element)
 {
+	int	i;
+
+	i = pList->currentElementCount;
 	if (pList->currentElementCount == pList->maxElementCount
-		|| position < 0 || position >= pList->maxElementCount)
+		|| position < 0 || position >= pList->currentElementCount)
 		return (-1);
+	while (i > position)
+	{
+		*(pList->pElement + i) = *(pList->pElement + i - 1);
+		i--;
+	}
 	*(pList->pElement + position) = element;
 	pList->currentElementCount++;
 	return (0);
