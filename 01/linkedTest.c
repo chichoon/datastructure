@@ -26,12 +26,12 @@ int	main(int argc, char *argv[])
 	pList = createLinkedList();
 	if (pList != NULL)
 	{
-		node.data = 5;
-		addLLElement(pList, 1, node);
-		node.data = 7;
-		addLLElement(pList, 1, node);
-		node.data = 3;
-		addLLElement(pList, 1, node);
+		i = -1;
+		while (++i < 10)
+		{
+			node.data = i;
+			addLLElement(pList, 0, node);
+		}
 		printLinkedList(pList);
 		removeLLElement(pList, 2);
 		printLinkedList(pList);
