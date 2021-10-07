@@ -30,7 +30,7 @@ int	addLLElement(LinkedList *pList, int position, ListNode element)
 	to_add->data = element.data;
 	i = -1;
 	node = &pList->headerNode;
-	while (++i + 1 < position)
+	while (++i < position)
 		node = node->pLink;
 	to_add->pLink = node->pLink;
 	node->pLink = to_add;
