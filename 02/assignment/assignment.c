@@ -11,7 +11,7 @@ void	printLinkedList(LinkedList *pList)
 	while (++i < pList->currentElementCount)
 	{
 		node = node->pLink;
-		printf("%d ", node->data);
+		printf("%d ", node->coef);
 	}
 	printf("\n");
 }
@@ -26,10 +26,10 @@ void	printAlgebra(LinkedList *pList)
 	while (++i + 1 < pList->currentElementCount)
 	{
 		node = node->pLink;
-		printf("%dx^%d + ", node->data, i);
+		printf("%dx^%d + ", node->coef, i);
 	}
 	node = node->pLink;
-	printf("%dx^%d", node->data, i);
+	printf("%dx^%d", node->coef, i);
 	printf("\n");
 }
 
@@ -46,12 +46,12 @@ void reverseLinkedList(LinkedList *pList)
 	node_prev->pLink = NULL;
 	while (node_now)
 	{
+		node_tmp = node_prev;
 		node_prev = node_now;
-		node_now = node_tmp;
-		node_tmp = node_now->pLink;
-		node_now->pLink = node_prev;
+		node_now = node_prev->pLink;
+		node_prev->pLink = node_tmp;
 	}
-
+	pList->headerNode.pLink = node_prev;
 }
 
 LinkedList	*alge_plus(LinkedList *pListA, LinkedList *pListB)
@@ -84,7 +84,7 @@ LinkedList	*alge_plus(LinkedList *pListA, LinkedList *pListB)
 		}
 		else
 		{
-			node_temp.data = nodeA->data + nodeB->data;
+			node_temp.coef = nodeA->coef + nodeB->coef;
 			addLLElement(pList, i, node_temp);
 			nodeA = nodeA->pLink;
 			nodeB = nodeB->pLink;
@@ -104,33 +104,33 @@ int	main(void)
 	pListA = createLinkedList();
 	pListB = createLinkedList();
 
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListA, 0, elem);
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListA, 1, elem);
-	elem.data = 2;
+	elem.coef = 2;
 	addLLElement(pListA, 2, elem);
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListA, 3, elem);
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListA, 4, elem);
-	elem.data = 4;
+	elem.coef = 4;
 	addLLElement(pListA, 5, elem);
-	elem.data = 6;
+	elem.coef = 6;
 	addLLElement(pListA, 6, elem);
 	printAlgebra(pListA);
 
-	elem.data = 4;
+	elem.coef = 4;
 	addLLElement(pListB, 0, elem);
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListB, 1, elem);
-	elem.data = 3;
+	elem.coef = 3;
 	addLLElement(pListB, 2, elem);
-	elem.data = 0;
+	elem.coef = 0;
 	addLLElement(pListB, 3, elem);
-	elem.data = 2;
+	elem.coef = 2;
 	addLLElement(pListB, 4, elem);
-	elem.data = 1;
+	elem.coef = 1;
 	addLLElement(pListB, 5, elem);
 	printAlgebra(pListB);
 
