@@ -54,44 +54,44 @@ void reverseLinkedList(LinkedList *pList)
 	pList->headerNode.pLink = node_prev;
 }
 
-LinkedList	*alge_plus(LinkedList *pListA, LinkedList *pListB)
+LinkedList	*alge_plus(LinkedList *pListA, LinkedList *pListB) //두 다항식을 더하는 함수
 {
-	LinkedList	*pList;
-	ListNode	*nodeA;
-	ListNode	*nodeB;
-	ListNode	node_temp;
-	int			i;
+	LinkedList	*pList; //더한 결과가 들어가는 새로운 연결 리스트
+	ListNode	*nodeA; //리스트 A를 순회하는 데에 사용할 노드 포인터
+	ListNode	*nodeB; //리스트 B를 순회하는 데에 사용할 노드 포인터
+	ListNode	node_temp; //노드 추가 시에 값을 임시로 넣어줄 스택 노드
+	int			i; //인덱스용 i
 
-	if (!pListA || !pListB)
-		return (0);
-	pList = createLinkedList();
-	if (!pList)
-		return (0);
-	nodeA = pListA->headerNode.pLink;
-	nodeB = pListB->headerNode.pLink;
-	i = 0;
-	while (nodeA || nodeB)
+	if (!pListA || !pListB) //둘 중 하나라도 널 포인터라면 덧셈이 성립하지 않으므로
+		return (NULL); //널 포인터 반환
+	pList = createLinkedList(); //새로운 연결 리스트 생성및 초기화
+	if (!pList) //생성 실패시
+		return (NULL); //널 포인터 반환
+	nodeA = pListA->headerNode.pLink; //리스트 A에서 순회할 노드 지정 (헤더 다음의 0번째 노드)
+	nodeB = pListB->headerNode.pLink; //리스트 B에서 순회할 노드 지정 (헤더 다음의 0번째 노드)
+	i = 0; //인덱스 0부터 시작 (position = degree가 0부터 시작할 예정)
+	while (nodeA || nodeB) //노드 A와 노드 B 중 하나라도 널포인터가 아닐 동안 순회
 	{
-		if (!nodeA)
+		if (!nodeA) //만약 노드 A가 널 포인터고, 노드 B의 값만 남았을 경우
 		{
-			addLLElement(pList, i, *nodeB);
-			nodeB = nodeB->pLink;
+			addLLElement(pList, i, *nodeB); //노드 B의 값을 그대로 pList에 새로운 노드로 추가
+			nodeB = nodeB->pLink; //노드 B 한 칸 이동
 		}
-		else if (!nodeB)
+		else if (!nodeB) //만약 노드 B가 널 포인터고, 노드 A의 값만 남았을 경우
 		{
-			addLLElement(pList, i, *nodeA);
-			nodeA = nodeA->pLink;
+			addLLElement(pList, i, *nodeA); //노드 A의 값을 그대로 pList에 새로운 노드로 추가
+			nodeA = nodeA->pLink; //노드 A 한 칸 이동
 		}
-		else
+		else //둘 다 널 포인터가 아닐 경우
 		{
-			node_temp.coef = nodeA->coef + nodeB->coef;
-			addLLElement(pList, i, node_temp);
-			nodeA = nodeA->pLink;
-			nodeB = nodeB->pLink;
+			node_temp.coef = nodeA->coef + nodeB->coef; //두 노드의 값 (coef) 을 더한 새로운 값을 node_temp에 저장
+			addLLElement(pList, i, node_temp); //node_temp 노드의 값을 pList에 추가
+			nodeA = nodeA->pLink; //노드 A 한 칸 이동 (다음 차수)
+			nodeB = nodeB->pLink; //노드 B 한 칸 이동 (다음 차수)
 		}
-		i++;
+		i++; //인덱스 (차수, position으로 이용되는 값) 증가
 	}
-	return (pList);
+	return (pList); //완성된 덧셈 결과 리스트 반환
 }
 
 int	main(void)
