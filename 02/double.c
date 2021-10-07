@@ -1,4 +1,5 @@
 #include "doublylist.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 DoublyList	*createDoublyList(void) //양방향 연결리스트 생성 및 초기화
@@ -28,7 +29,7 @@ int	addDLElement(DoublyList *pList, int position, DoublyListNode element) //노�
 	DoublyListNode	*to_add; //추가할 노드 생성
 	DoublyListNode	*node; //목록을 순회하기 위한 노드 변수
 
-	if (position >= pList->currentElementCount || position < 0)
+	if (position > pList->currentElementCount + 1 || position < 0)
 	//currentElementCount (최대 인덱스 + 1) 보다 크거나 음수일 경우 예외처리
 		return (-1); //-1 반환 (에러)
 	to_add = malloc(sizeof(DoublyListNode)); //추가할 노드에 메모리 할당
@@ -54,8 +55,8 @@ int	removeDLElement(DoublyList *pList, int position) //노드 제거
 	DoublyListNode	*to_del; //삭제할 노드 포인터
 	DoublyListNode	*node; //목록을 순회하기 위한 노드 변수
 
-	if (pList->currentElementCount < position || position < 0)
-	//currentElementCount (최대 인덱스 + 1) 보다 크거나 음수일 경우 예외처리
+	if (pList->currentElementCount <= position || position < 0)
+	//currentElementCount (최대 인덱스 + 1) 보다 크거나 같을때, 음수일 경우 예외처리
 		return (-1); //-1 반환 (에러)
 	i = -1; //인덱스 i는 -1부터 시작
 	node = &pList->headerNode; //순회용 노드인 node 포인터는 header부터 시작
@@ -85,12 +86,12 @@ int getDoublyListLength(DoublyList* pList) //리스트 길이 반환
 
 DoublyListNode* getDLElement(DoublyList* pList, int position) //리스트 원소 받아오기
 {
-	int				i;
-	DoublyListNode	*to_find;
+	int				i; //원소 접근용 인덱스
+	DoublyListNode	*to_find; //찾아서 반환할 노드를 담은 포인터
 
 	if (pList->currentElementCount <= position || position < 0)
 	//currentElementCount (최대 인덱스 + 1) 보다 크거나 음수일 경우 예외처리
-		return (-1); //-1 반환 (에러)
+		return (NULL); //널포인터 반환 (에러)
 	i = -1; //인덱스 i는 -1부터 시작
 	to_find = &pList->headerNode; //순회용 노드인 node 포인터는 header부터 시작
 	while (++i <= position) //전위연산을 통해 인덱스를 0부터 시작하게끔 함
@@ -98,16 +99,17 @@ DoublyListNode* getDLElement(DoublyList* pList, int position) //리스트 원소
 	return (to_find); //해당 노드 반환
 }
 
-void displayDoublyList(DoublyList* pList)
+void displayDoublyList(DoublyList* pList) //리스트 출력
 {
-	int				i;
-	DoublyListNode	*node;
+	int				i; //원소 접근용 인덱스
+	DoublyListNode	*node; //출력할 노드를 담은 임시포인터
 
-	node = &pList->headerNode;
-	while (++i < pList->currentElementCount)
+	node = &pList->headerNode; //헤더노드부터 시작
+	i = -1; //인덱스는 -1부터 시작
+	while (++i < pList->currentElementCount) //전위연산을 통해 0부터 현재 원소개수 직전까지 순회
 	{
-		printf("%d ", node->data);
-		node = node->pRLink;
+		node = node->pRLink; //다음 노드로 이동
+		printf("%d ", node->data); //노드 출력
 	}
-	printf("\n");
+	printf("\n"); //개행 출력
 }
