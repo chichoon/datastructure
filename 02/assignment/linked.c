@@ -10,7 +10,7 @@ LinkedList	*createLinkedList(void)
 	if (!lst)
 		return (0);
 	lst->currentElementCount = 0;
-	lst->headerNode.data = 0;
+	lst->headerNode.coef = 0;
 	lst->headerNode.pLink = NULL;
 	return (lst);
 }
@@ -27,7 +27,8 @@ int	addLLElement(LinkedList *pList, int position, ListNode element)
 	to_add = malloc(sizeof(ListNode));
 	if (!to_add)
 		return (-1);
-	to_add->data = element.data;
+	to_add->coef = element.coef;
+	to_add->degree = position;
 	i = -1;
 	node = &pList->headerNode;
 	while (++i < position)
