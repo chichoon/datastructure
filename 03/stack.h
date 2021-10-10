@@ -2,7 +2,14 @@
 #define _STACK_
 
 #include "arraylist/arraylist.h"
-#include "linkedlist/linkedlist.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct StackNodeType
+{
+	int	data;
+	struct StackNodeType *next;
+} StackNode;
 
 typedef struct LinkedStackType
 {
