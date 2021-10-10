@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "linkedstack.h"
 
 void	printStack(LinkedStack *stack)
 {
@@ -20,7 +20,7 @@ int	main(void)
 	LinkedStack	*stack;
 	int			i;
 
-	stack = createLinkedStack();
+	stack = createLinkedStack(10);
 	i = -1;
 	while (++i < 10)
 	{
@@ -28,6 +28,11 @@ int	main(void)
 		pushLS(stack, element);
 	}
 	printStack(stack);
+	element.data = 11;
+	pushLS(stack, element);
+	printStack(stack);
+	if (isLinkedStackFull(stack))
+		printf("LinkedList is full!!\n");
 	free(popLS(stack));
 	free(popLS(stack));
 	printStack(stack);
@@ -36,5 +41,5 @@ int	main(void)
 	free(popLS(stack));
 	printStack(stack);
 	deleteLinkedStack(stack);
-	system("leaks a.out");
+	//system("leaks a.out");
 }

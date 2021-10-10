@@ -1,12 +1,15 @@
-#include "stack.h"
+#include "linkedstack.h"
 
-LinkedStack* createLinkedStack(void)
+LinkedStack* createLinkedStack(int maxElementCount)
 {
 	LinkedStack *stack;
 
+	if (maxElementCount <= 0)
+		return (NULL);
 	stack = malloc(sizeof(LinkedStack));
 	if (!stack)
 		return (0);
+	stack->maxElementCount = maxElementCount;
 	stack->currentElementCount = 0;
 	stack->pTopElement = NULL;
 	return (stack);
@@ -16,8 +19,10 @@ int pushLS(LinkedStack* pStack, StackNode element)
 {
 	StackNode	*to_add;
 
+	if (!pStack || pStack->maxElementCount == pStack->currentElementCount)
+		return (-1);
 	to_add = malloc(sizeof(StackNode));
-	if (!to_add || !pStack)
+	if (!to_add)
 		return (-1);
 	to_add->data = element.data;
 	to_add->next = pStack->pTopElement;
@@ -40,11 +45,15 @@ StackNode* popLS(LinkedStack* pStack)
 
 StackNode* peekLS(LinkedStack* pStack)
 {
+	if (!pStack)
+		return (NULL);
 	return (pStack->pTopElement);
 }
 
 void deleteLinkedStack(LinkedStack* pStack)
 {
+	if (!pStack)
+		return ;
 	while (pStack->currentElementCount)
 		free(popLS(pStack));
 	free(pStack);
@@ -52,13 +61,17 @@ void deleteLinkedStack(LinkedStack* pStack)
 
 int isLinkedStackFull(LinkedStack* pStack)
 {
-	if (!pStack->currentElementCount)
-		return (0);
-	return (1);
+	if (!pStack)
+		return (-1);
+	if (pStack->currentElementCount == pStack->maxElementCount)
+		return (1);
+	return (0);
 }
 
 int isLinkedStackEmpty(LinkedStack* pStack)
 {
+	if (!pStack)
+		return (-1);
 	if (!pStack->currentElementCount)
 		return (1);
 	return (0);
