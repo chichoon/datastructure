@@ -72,7 +72,7 @@ int	removeALElement(ArrayList *pList, int position) //ArrayList에서 원소 제
 	if (position > pList->currentElementCount || position < 0)
 	//position이 currentElementCount보다 크거나 (원소가 존재하지 않는 구역) position이 음수일 때
 		return (-1); //-1 반환 (에러)
-	while (++position <= pList->currentElementCount) //position부터 currentElementCount까지
+	while (++position < pList->currentElementCount) //position부터 currentElementCount까지
 	//(position 인덱스에 있던 원소를 지우고 그 뒤에 위치한 원소들을 한 칸씩 앞으로 당겨주기 위함)
 		*(pList->pElement + position - 1) = *(pList->pElement + position);
 		//addALElement와 반대 방식으로 동작한다고 생각하면 됨
