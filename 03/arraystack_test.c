@@ -29,12 +29,12 @@ int	main(void)
 	printStack(stack);
 	if (isArrayStackFull(stack))
 		printf("ArrayList is full!!\n");
-	popAS(stack);
-	popAS(stack);
+	printf("Pop %d\n", popAS(stack));
+	printf("Pop %d\n", popAS(stack));
 	printStack(stack);
 	printf("Top Node: %d\n", peekAS(stack));
-	popAS(stack);
-	popAS(stack);
+	printf("Pop %d\n", popAS(stack));
+	printf("Pop %d\n", popAS(stack));
 	printStack(stack);
 	deleteArrayStack(stack);
 	//system("leaks a.out");
