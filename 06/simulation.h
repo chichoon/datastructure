@@ -40,7 +40,7 @@ int			getQueueLength(ArrayQueue *queue);
 int			deleteQueue(ArrayQueue *queue);
 
 //Simulation Functions
-float		simulation(ArrayQueue *arrivalQueue, ArrayQueue *waitQueue);
+float		simulation(ArrayQueue *arrivalQueue, ArrayQueue *waitQueue, int serviceCount);
 void		maketest(ArrayQueue *waitQueue);
 
 #define TRUE		1

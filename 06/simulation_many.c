@@ -93,13 +93,16 @@ int	deleteQueue(ArrayQueue *queue)
 	return (0);
 }
 
-float simulation(ArrayQueue *arrivalQueue, ArrayQueue *waitQueue) // + 직원수
+float simulation(ArrayQueue *arrivalQueue, ArrayQueue *waitQueue, int serviceCount) // + 직원수
 {
-	SimCustomer	*arrivedCustomer = NULL, *serviceCustomer = NULL;
-	int	i = 0;
+	SimCustomer	*arrivedCustomer = NULL;
+	SimCustomer	*serviceCustomer[serviceCount];
+	int	i = 0, j = 0;
 	int	sum = 0;
 	int	customerCount = getQueueLength(waitQueue);
 
+	for (int j = 0; j < serviceCount; j++)
+		serviceCustomer[j] = NULL;
 	while (1)
 	{
 		if (!isQueueEmpty(waitQueue) && peekQueue(waitQueue)->arrivalTime == i) // for
@@ -110,24 +113,37 @@ float simulation(ArrayQueue *arrivalQueue, ArrayQueue *waitQueue) // + 직원수
 			enQueue(arrivalQueue, *arrivedCustomer);
 			free(arrivedCustomer);
 		}
-		if (!serviceCustomer && !isQueueEmpty(arrivalQueue))
+		for (j = 0; j < serviceCount; j++)
 		{
-			serviceCustomer = deQueue(arrivalQueue);
-			serviceCustomer->startTime = i;
-			serviceCustomer->status = start;
-			printf("%d\tService Start (arrived %d) ===\n", i, serviceCustomer->arrivalTime);
+			if (!serviceCustomer[j] && !isQueueEmpty(arrivalQueue))
+			{
+				serviceCustomer[j] = deQueue(arrivalQueue);
+				serviceCustomer[j]->startTime = i;
+				serviceCustomer[j]->status = start;
+				printf("%d\tService Start (arrived %d, employee #%d) ===\n", i, serviceCustomer[j]->arrivalTime, j);
+				break;
+			}
 		}
-		if (serviceCustomer && serviceCustomer->startTime + serviceCustomer->serviceTime == i)
+		for (j = 0; j < serviceCount; j++)
 		{
-			serviceCustomer->status = end;
-			serviceCustomer->endTime = i;
-			sum += serviceCustomer->startTime - serviceCustomer->arrivalTime;
-			printf("%d\tCustomer service end ===\n***\tArrival: %d | Service: %d | Start: %d | End : %d\t***\n", i, serviceCustomer->arrivalTime, serviceCustomer->serviceTime, serviceCustomer->startTime, serviceCustomer->endTime);
-			free(serviceCustomer);
-			serviceCustomer = NULL;
+			if (serviceCustomer[j] && serviceCustomer[j]->startTime + serviceCustomer[j]->serviceTime == i)
+			{
+				serviceCustomer[j]->status = end;
+				serviceCustomer[j]->endTime = i;
+				sum += serviceCustomer[j]->startTime - serviceCustomer[j]->arrivalTime;
+				printf("%d\tCustomer service end ===\n***\tArrival: %d | Service: %d | Start: %d | End : %d\t***\n", i, serviceCustomer[j]->arrivalTime, serviceCustomer[j]->serviceTime, serviceCustomer[j]->startTime, serviceCustomer[j]->endTime);
+				free(serviceCustomer[j]);
+				serviceCustomer[j] = NULL;
+			}
 		}
-		if (isQueueEmpty(arrivalQueue) && isQueueEmpty(waitQueue) && serviceCustomer == NULL)
-			break;
+		if (isQueueEmpty(arrivalQueue) && isQueueEmpty(waitQueue))
+		{
+			for (j = 0; j < serviceCount; j++)
+				if (serviceCustomer[j])
+					break;
+			if (j == serviceCount)
+				break ;
+		}
 		i++;
 	}
 	return ((float) sum / (float) customerCount);
