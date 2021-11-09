@@ -23,4 +23,5 @@ int	main()
 	displayArrayGraph(graph);
 
 	bfs(graph);
+	deleteArrayGraph(graph);
 }
