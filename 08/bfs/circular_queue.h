@@ -6,7 +6,7 @@
 
 typedef struct ArrayQueueNodeType
 {
-	char data;
+	int data;
 } ArrayQueueNode;
 
 typedef struct ArrayQueueType
@@ -19,8 +19,8 @@ typedef struct ArrayQueueType
 
 ArrayQueue	*createArrayQueue(int maxElementCount);
 int			enQueue(ArrayQueue *queue, ArrayQueueNode element);
-char		deQueue(ArrayQueue *queue);
-char		peekQueue(ArrayQueue *queue);
+int			deQueue(ArrayQueue *queue);
+int			peekQueue(ArrayQueue *queue);
 int			isQueueFull(ArrayQueue *queue);
 int			isQueueEmpty(ArrayQueue *queue);
 int			getQueueLength(ArrayQueue *queue);

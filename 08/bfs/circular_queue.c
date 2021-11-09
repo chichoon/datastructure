@@ -30,7 +30,7 @@ int	enQueue(ArrayQueue *queue, ArrayQueueNode element)
 	return (0);
 }
 
-char	deQueue(ArrayQueue *queue)
+int	deQueue(ArrayQueue *queue)
 {
 	if (isQueueEmpty(queue))
 		return (0);
@@ -38,7 +38,7 @@ char	deQueue(ArrayQueue *queue)
 	return ((queue->pElement + queue->front_index)->data);
 }
 
-char	peekQueue(ArrayQueue *queue)
+int	peekQueue(ArrayQueue *queue)
 {
 	if (isQueueEmpty(queue))
 		return (0);
