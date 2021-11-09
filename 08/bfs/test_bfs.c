@@ -13,6 +13,7 @@ int	main()
 	addEdgeAG(graph, 5, 9);
 	addEdgeAG(graph, 3, 11);
 	addEdgeAG(graph, 3, 7);
+
 	/*
 			  1
 			/  \
@@ -20,6 +21,7 @@ int	main()
 		   /  /\
 		  9  11 7
 	*/
+
 	displayArrayGraph(graph);
 
 	bfs(graph);
