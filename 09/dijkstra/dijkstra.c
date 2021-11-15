@@ -68,15 +68,9 @@ int	*dijkstra(ArrayGraph *graph, int start)
 			}
 		}
 		arrVisited[temp] = VISITED;
-		printf("temp: %d\n", temp);
 		for (int j = 0; j < graph->maxVertexCount; j++)
-		{
 			if (arrDist[j] > arrDist[temp] + graph->ppAdjEdge[temp][j] && !arrVisited[j])
-			{
-				printf("arrDist[%d]: %d, arrDist[%d] + Edge[%d][%d] = %d\n", j, arrDist[j], temp, temp, j, arrDist[temp] + graph->ppAdjEdge[temp][j]);
 				arrDist[j] = arrDist[temp] + graph->ppAdjEdge[temp][j];
-			}
-		}
 	}
 	free(arrVisited);
 	return (arrDist);
