@@ -24,6 +24,13 @@ int	main(void)
 		printf("%d ", data[i]);
 	printf("\n===================\n");
 
+	for (int i = 0; i < MAX; i++)
+		data[i] = number[i];
+	printf("\n====MERGE SORT====\n");
+	merge_sort(data, 0, MAX - 1);
+	display_list(data);
+	printf("===================\n");
+
 	int data_heap[MAX + 1];
 	for (int i = 0; i < MAX; i++)
 		data_heap[i + 1] = number[i];
